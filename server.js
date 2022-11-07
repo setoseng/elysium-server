@@ -1,15 +1,26 @@
-const express =  require('express');
-const app = express();
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const route = require('./routes/menuType')
+const port = 3000
 
-app.set('view engine', 'ejs')
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
 
-app.get('/', (req, res) => { 
-  res.render('index', { text: "World" });
-});
+app.get('/', (request, response) => {
+  response.json({ info: 'Node.js, Express, and Postgres API' })
+})
 
-const userRouter = require('./routes/users.js');
+app.get('/menuType', route.getMenuType)
+app.get('/menuType/:id', route.getMenuTypeById)
+app.post('/menuType', route.createMenuType)
+app.put('/menuType/:id', route.updateMenuType)
+app.delete('/menuType/:id', route.deleteMenuType)
 
-app.use('/users', userRouter);
-
-app.listen(3000)
-console.log("Now listening on port 3000...");
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
