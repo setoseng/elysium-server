@@ -11,7 +11,7 @@ const getMenuType = (request, response) => {
 
 const getMenuTypeById = (request, response) => {
   const id = parseInt(request.params.id)
-
+  console.log(id);
   pool.query('SELECT * FROM menu_type WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
@@ -21,7 +21,7 @@ const getMenuTypeById = (request, response) => {
 }
 
 const createMenuType = (request, response) => {
-  const { name, email } = request.body
+  const { name, description } = request.body
 
   pool.query('INSERT INTO menu_type (name, description) VALUES ($1, $2) RETURNING *', [name, description], (error, results) => {
     if (error) {
@@ -35,11 +35,11 @@ const createMenuType = (request, response) => {
 
 const updateMenuType = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name, email } = request.body
+  const { name, description } = request.body
 
   pool.query(
     'UPDATE menu_type SET name = $1, description = $2 WHERE id = $3',
-    [name, email, id],
+    [name, description, id],
     (error, results) => {
       if (error) {
         throw error

@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
 })
 
 app.get('/menuType', route.getMenuType)
-app.get('/menuType/:id', route.getMenuTypeById)
+app.get('/menuTypeById/:id', route.getMenuTypeById)
 app.post('/menuType', route.createMenuType)
 app.put('/menuType/:id', route.updateMenuType)
 app.delete('/menuType/:id', route.deleteMenuType)
