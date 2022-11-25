@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const route = require('./routes/menuType')
-const port = 3000
+const port = 80
 
 app.use(bodyParser.json())
 app.use(
@@ -15,11 +15,11 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.get('/menuType', route.getMenuType)
-app.get('/menuTypeById/:id', route.getMenuTypeById)
-app.post('/menuType', route.createMenuType)
-app.put('/menuType/:id', route.updateMenuType)
-app.delete('/menuType/:id', route.deleteMenuType)
+app.get('/getMenuType', route.getMenuType)
+app.get('/getMenuTypeById/:id', route.getMenuTypeById)
+app.post('/createMenuType', route.createMenuType)
+app.put('/updateMenuTypeById/:id', route.updateMenuType)
+app.delete('/deleteMenuTypeById/:id', route.deleteMenuType)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
