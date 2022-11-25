@@ -1,9 +1,11 @@
 const pool = require('../db/postgres.js')
 
+console.log('Connected to DB');
+
 const getMenuType = (request, response) => {
   pool.query('SELECT * FROM menu_type ORDER BY id ASC', (error, results) => {
     if (error) {
-      throw error
+      console.log(error)
     }
     response.status(200).json(results.rows)
   })
@@ -14,7 +16,7 @@ const getMenuTypeById = (request, response) => {
   console.log(id);
   pool.query('SELECT * FROM menu_type WHERE id = $1', [id], (error, results) => {
     if (error) {
-      throw error
+      console.log(error)
     }
     response.status(200).json(results.rows)
   })
@@ -25,7 +27,7 @@ const createMenuType = (request, response) => {
 
   pool.query('INSERT INTO menu_type (name, description) VALUES ($1, $2) RETURNING *', [name, description], (error, results) => {
     if (error) {
-      throw error
+      console.log(error)
     }
     response.status(201).send(
       `Menu type added with ID: ${results.rows[0].id} and description ${results.rows[0].description}`
@@ -42,7 +44,7 @@ const updateMenuType = (request, response) => {
     [name, description, id],
     (error, results) => {
       if (error) {
-        throw error
+        console.log(error)
       }
       response.status(200).send(`Menu type modified with ID: ${id} and description ${results.rows[0].description}`)
     }
@@ -54,7 +56,7 @@ const deleteMenuType = (request, response) => {
 
   pool.query('DELETE FROM menu_type WHERE id = $1', [id], (error, results) => {
     if (error) {
-      throw error
+      console.log(error)
     }
     response.status(200).send(`Menu type deleted with ID: ${id}`)
   })
